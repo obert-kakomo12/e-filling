@@ -1,0 +1,286 @@
+/* Masvingo Rural District Council — Pure 1-Screen Executive Dashboard */
+
+.dashboard-page-pure {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+/* Welcome Hero Card */
+.dashboard-hero-card {
+  background: linear-gradient(135deg, rgba(0, 95, 215, 0.45) 0%, rgba(3, 22, 65, 0.75) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-xl);
+  padding: 1.4rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 16px 40px rgba(0, 20, 60, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-hero-card::before {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  right: 140px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(0, 162, 255, 0.35) 0%, rgba(0, 85, 204, 0.2) 60%, transparent 100%);
+  pointer-events: none;
+}
+
+.dashboard-hero-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background: radial-gradient(circle at right, rgba(201, 162, 39, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hero-badge-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero-heading {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hero-sub {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.hero-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.dept-tag-pill {
+  padding: 0.5rem 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* 4 KPI Stat Cards */
+.dashboard-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.15rem;
+}
+
+.dashboard-kpi-card {
+  background: rgba(4, 24, 68, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0, 15, 45, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.dashboard-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(64, 160, 255, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 30, 90, 0.4);
+}
+
+.kpi-accent-documents { border-left: 3.5px solid #38bdf8; }
+.kpi-accent-approvals { border-left: 3.5px solid #fbbf24; }
+.kpi-accent-records { border-left: 3.5px solid #34d399; }
+.kpi-accent-audit { border-left: 3.5px solid #a78bfa; }
+
+.kpi-title-label {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-val-number {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-top: 0.1rem;
+}
+
+/* 3 Quick Navigation Workspaces Grid */
+.dashboard-workspaces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.15rem;
+}
+
+.workspace-nav-card {
+  background: rgba(4, 24, 68, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 15, 45, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.workspace-nav-card:hover {
+  transform: translateY(-2px);
+  background: rgba(8, 36, 95, 0.78);
+  border-color: rgba(64, 160, 255, 0.6);
+  box-shadow: 0 14px 36px rgba(0, 40, 120, 0.45);
+}
+
+.workspace-accent-routing { border-left: 3.5px solid var(--color-accent); }
+.workspace-accent-approvals { border-left: 3.5px solid #38bdf8; }
+.workspace-accent-councilor { border-left: 3.5px solid #34d399; }
+.workspace-accent-vault { border-left: 3.5px solid #a78bfa; }
+
+.workspace-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.workspace-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+}
+
+.workspace-card-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.workspace-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Compliance & Security Footer Strip */
+.dashboard-security-strip {
+  background: rgba(4, 22, 60, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 15, 45, 0.2);
+}
+
+.security-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.security-strip-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.security-dot-online {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .dashboard-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .dashboard-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-hero-card {
+    padding: 1.25rem;
+  }
+  .hero-heading {
+    font-size: 1.35rem;
+  }
+}

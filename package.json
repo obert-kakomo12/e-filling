@@ -1,0 +1,11 @@
+{
+  "name": "mrdc-efiling-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Masvingo Rural District Council E-Filing & Records Management System",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "preview": "npm --prefix web run preview"
+  }
+}

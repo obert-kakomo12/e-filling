@@ -1,0 +1,345 @@
+/* MRDC Intelligent Document Routing Inspector Styling */
+
+.routing-inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Header & Presets Bar */
+.inspector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.inspector-title-group h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.inspector-title-group p {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.2rem;
+}
+
+.inspector-presets-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preset-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-secondary);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.preset-chip:hover,
+.preset-chip.active {
+  background: rgba(26, 58, 92, 0.45);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+/* Control Panel Grid */
+.inspector-control-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  background: rgba(4, 22, 60, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px rgba(0, 15, 45, 0.25);
+}
+
+.inspector-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.inspector-field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.inspector-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.inspector-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: rgba(26, 58, 92, 0.4);
+}
+
+.inspector-select option {
+  background: #0d1b2a;
+  color: #ffffff;
+}
+
+/* Category Matrix Cards */
+.category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.category-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.category-card:hover {
+  background: rgba(26, 58, 92, 0.3);
+  border-color: rgba(201, 162, 39, 0.35);
+  transform: translateY(-2px);
+}
+
+.category-card.selected {
+  background: rgba(26, 58, 92, 0.55);
+  border: 1.5px solid var(--color-accent);
+  box-shadow: 0 0 16px rgba(201, 162, 39, 0.2);
+}
+
+.category-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-card-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.category-card-desc {
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+/* Action Flags Checklist */
+.action-flags-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.flag-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  transition: background var(--transition-fast);
+}
+
+.flag-checkbox-label:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.flag-checkbox-label input[type="checkbox"] {
+  accent-color: var(--color-accent);
+  width: 15px;
+  height: 15px;
+}
+
+/* Real-Time Routing Visualizer Box */
+.routing-diagram-card {
+  background: rgba(4, 22, 60, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 15, 45, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.diagram-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.85rem;
+}
+
+.diagram-flow-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1rem 0;
+}
+
+.flow-node {
+  background: rgba(26, 58, 92, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 150px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.flow-node.origin {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.flow-node.engine {
+  border-color: var(--color-accent);
+  background: rgba(201, 162, 39, 0.15);
+  animation: pulse-glow 3s infinite alternate;
+}
+
+.flow-node.targets {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.flow-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-accent);
+  gap: 0.25rem;
+}
+
+.flow-dept-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.dept-pill {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Clearance Matrix Table */
+.clearance-matrix-wrapper {
+  overflow-x: auto;
+}
+
+.clearance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.clearance-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.clearance-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+}
+
+.clearance-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.clearance-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.clearance-status-tag.allowed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.clearance-status-tag.hidden {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+@media (max-width: 768px) {
+  .diagram-flow-container {
+    flex-direction: column;
+  }
+  .flow-connector {
+    transform: rotate(90deg);
+    margin: 0.5rem 0;
+  }
+}

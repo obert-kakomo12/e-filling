@@ -1,0 +1,58 @@
+/* Masvingo Rural District Council — Approvals Page CSS */
+
+.approvals-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.approvals-page-header {
+  background: linear-gradient(135deg, rgba(0, 95, 215, 0.45) 0%, rgba(3, 22, 65, 0.75) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 16px 40px rgba(0, 20, 60, 0.35);
+}
+
+.approvals-page-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.approvals-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.approvals-page-title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.approvals-page-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  margin: 0;
+  max-width: 720px;
+  line-height: 1.5;
+}

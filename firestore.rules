@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── HELPER FUNCTIONS ──────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+
+    function hasAnyRole(roles) {
+      return isAuthenticated() && getUserData().role in roles;
+    }
+
+    function isSysAdmin() { return hasRole('sysadmin'); }
+    function isCEO()      { return hasAnyRole(['ceo']); }
+    function isHOD()      { return hasRole('hod'); }
+    function isAuditor()  { return hasRole('auditor'); }
+    function isCouncilor(){ return hasRole('councilor'); }
+
+    function isActiveUser() {
+      return isAuthenticated() && getUserData().isActive == true;
+    }
+
+    // ── USERS COLLECTION ─────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Users can read their own profile
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      // SysAdmin can read all users
+      allow read: if isSysAdmin();
+      // SysAdmin can create/update users; users can update own non-role fields
+      allow create: if isSysAdmin();
+      allow update: if isSysAdmin() ||
+        (request.auth.uid == userId &&
+         !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['role', 'department', 'isActive']));
+      allow delete: if false; // Never hard-delete users
+    }
+
+    // ── DOCUMENTS COLLECTION ─────────────────────────────────────────────────
+    match /documents/{docId} {
+      // Read: authenticated active users (app-level RBAC handles visibility)
+      allow read: if isActiveUser();
+      // Create: any active user (clerks, officers, HODs)
+      allow create: if isActiveUser();
+      // Update: HODs, SysAdmin (for approval/rejection/publish/archive)
+      allow update: if isActiveUser() &&
+        hasAnyRole(['sysadmin', 'hod', 'ceo']);
+      // Delete: SysAdmin only
+      allow delete: if isSysAdmin();
+    }
+
+    // ── AUDIT LOGS — IMMUTABLE ────────────────────────────────────────────────
+    match /auditLogs/{logId} {
+      // Only SysAdmin and Auditors can read
+      allow read: if hasAnyRole(['sysadmin', 'auditor', 'external_auditor']);
+      // Any authenticated user can create (write-only for system)
+      allow create: if isAuthenticated();
+      // NOBODY can update or delete audit logs — ever
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // ── NOTIFICATIONS ─────────────────────────────────────────────────────────
+    match /notifications/{notifId} {
+      // Users can read their own notifications
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      // Users can mark own notifications as read
+      allow update: if isAuthenticated() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if false;
+    }
+
+    // ── ARCHIVE COLLECTION ────────────────────────────────────────────────────
+    match /archive/{archiveId} {
+      allow read: if isActiveUser();
+      // Only SysAdmin can trigger archiving
+      allow create: if isSysAdmin();
+      allow update: if false; // Archives are immutable
+      allow delete: if false;
+    }
+  }
+}

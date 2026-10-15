@@ -1,0 +1,117 @@
+/* MRDC App Layout Styling — Royal Blue Ambient Bubbles Theme */
+
+.mrdc-app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #003080;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.mrdc-main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  background: linear-gradient(135deg, #0066d6 0%, #0052cc 55%, #003ea8 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+/* Background dot matrix matching login screen */
+.app-bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  opacity: 0.65;
+  z-index: 0;
+}
+
+/* Iconic vibrant spherical blue bubbles matching login screen */
+.app-bg-bubble-1 {
+  position: fixed;
+  top: -80px;
+  right: -50px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #00a2ff 0%, #0066e8 45%, #0038a8 90%);
+  box-shadow: 0 25px 70px rgba(0, 15, 60, 0.45);
+  opacity: 0.88;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-bg-bubble-2 {
+  position: fixed;
+  bottom: -150px;
+  left: 260px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #0088ff 0%, #0050cc 50%, #002d85 95%);
+  box-shadow: 0 30px 80px rgba(0, 10, 50, 0.5);
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-bg-bubble-3 {
+  position: fixed;
+  top: 42%;
+  right: 18%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #38bdf8 0%, #0070f0 55%, #003fa8 100%);
+  box-shadow: 0 16px 45px rgba(0, 20, 80, 0.35);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-bg-bubble-4 {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #00b4d8 0%, #006bd6 50%, #012a78 100%);
+  box-shadow: 0 20px 60px rgba(0, 15, 55, 0.4);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-bg-bubble-5 {
+  position: fixed;
+  top: 10%;
+  left: 340px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #60a5fa 0%, #0284c7 60%, #034f8a 100%);
+  box-shadow: 0 12px 35px rgba(0, 25, 75, 0.3);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mrdc-content-area {
+  flex: 1;
+  padding: 1.5rem 2rem 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .mrdc-content-area {
+    padding: 1.15rem 1rem 2rem;
+  }
+}

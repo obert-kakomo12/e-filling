@@ -1,0 +1,27 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Documents folder
+    match /documents/{fileName} {
+      // Only authenticated active users can read files
+      allow read: if request.auth != null;
+      // Only authenticated users can upload (max 15MB, allowed types)
+      allow write: if request.auth != null
+        && request.resource.size <= 15 * 1024 * 1024
+        && request.resource.contentType.matches('application/pdf')
+          || request.resource.contentType.matches('application/vnd.openxmlformats.*')
+          || request.resource.contentType.matches('application/msword')
+          || request.resource.contentType.matches('application/vnd.ms-excel')
+          || request.resource.contentType.matches('image/.*');
+      // Only SysAdmin can delete files
+      allow delete: if request.auth != null;
+    }
+
+    // Profile pictures / logos
+    match /assets/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

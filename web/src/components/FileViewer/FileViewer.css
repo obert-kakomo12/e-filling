@@ -1,0 +1,411 @@
+/* MRDC Universal Document Viewer & Security Watermarking Styling */
+
+.viewer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 11, 20, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 2500;
+  display: flex;
+  flex-direction: column;
+  animation: viewerFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Top Toolbar */
+.viewer-toolbar {
+  height: 64px;
+  background: rgba(3, 18, 50, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  gap: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.viewer-seal-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-accent);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.viewer-doc-titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.viewer-doc-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 380px;
+}
+
+.viewer-doc-ref {
+  font-family: monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Center Zoom & Page Controls */
+.viewer-toolbar-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.6rem;
+}
+
+.viewer-ctrl-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.viewer-ctrl-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.viewer-ctrl-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.viewer-zoom-val {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* Right Actions */
+.viewer-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.viewer-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.viewer-action-btn:hover {
+  background: rgba(26, 58, 92, 0.5);
+  border-color: var(--color-accent);
+}
+
+.viewer-close-btn {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.viewer-close-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+  color: #ffffff;
+}
+
+/* Document Stage / Canvas */
+.viewer-canvas-stage {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Physical Document Sheet Simulation (A4 / Official Document) */
+.doc-sheet {
+  background: #ffffff;
+  color: #1e293b;
+  width: 100%;
+  max-width: 820px;
+  min-height: 1050px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8);
+  padding: 3.5rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-out;
+  transform-origin: top center;
+}
+
+/* Security Watermark Repeating Diagonal Overlay */
+.doc-security-watermark-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 240px;
+  gap: 2rem;
+  padding: 2rem;
+  opacity: 0.13;
+}
+
+.watermark-stamp {
+  transform: rotate(-30deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.35;
+  border: 2px dashed #0f172a;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.watermark-org {
+  font-size: 0.85rem;
+}
+
+.watermark-user {
+  font-size: 0.72rem;
+}
+
+.watermark-ref {
+  font-size: 0.68rem;
+  font-family: monospace;
+}
+
+/* Official Council Document Layout */
+.doc-letterhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2.5px solid #1a3a5c;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.letterhead-seal {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #c9a227;
+}
+
+.letterhead-titles {
+  text-align: center;
+  flex: 1;
+}
+
+.letterhead-council {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #1a3a5c;
+  letter-spacing: -0.01em;
+}
+
+.letterhead-sub {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c9a227;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.letterhead-dept {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 0.2rem;
+}
+
+.doc-metadata-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+}
+
+.meta-field-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.meta-field-val {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.doc-body-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.doc-body-text {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+/* Formal Document Table */
+.doc-formal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.82rem;
+}
+
+.doc-formal-table th {
+  background: #1a3a5c;
+  color: #ffffff;
+  padding: 0.65rem 0.85rem;
+  font-weight: 700;
+  text-align: left;
+  border: 1px solid #1a3a5c;
+}
+
+.doc-formal-table td {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
+}
+
+.doc-formal-table tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+/* Signatures block */
+.doc-signatures-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.sig-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sig-line {
+  width: 100%;
+  height: 1px;
+  background: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.sig-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sig-title {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .doc-sheet {
+    padding: 2rem 1.5rem;
+  }
+  .doc-metadata-bar {
+    grid-template-columns: 1fr;
+  }
+  .viewer-doc-title {
+    max-width: 180px;
+  }
+}
+
+@keyframes viewerFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Print Styles: Maintain Security Watermark */
+@media print {
+  .viewer-toolbar {
+    display: none !important;
+  }
+  .viewer-overlay {
+    position: static;
+    background: #fff;
+  }
+  .doc-sheet {
+    box-shadow: none;
+    max-width: 100%;
+    padding: 0;
+  }
+}
