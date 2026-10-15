@@ -280,8 +280,10 @@ export const RoutingInspector = () => {
 
           {/* Connector Arrow */}
           <div className="flow-connector">
-            <span style={{ fontSize: "0.7rem", fontWeight: 700 }}>CONDITIONAL MATRIX</span>
-            <ArrowRight size={22} />
+            <span className="flow-connector-label">CONDITIONAL MATRIX</span>
+            <div className="flow-connector-arrow">
+              <ArrowRight size={20} />
+            </div>
           </div>
 
           {/* Node 2: Engine Status */}
@@ -289,7 +291,7 @@ export const RoutingInspector = () => {
             <span style={{ fontSize: "0.7rem", color: "var(--color-accent)", fontWeight: 700 }}>
               CATEGORY
             </span>
-            <span style={{ fontSize: "0.92rem", fontWeight: 800, color: "#ffffff" }}>
+            <span style={{ fontSize: "0.92rem", fontWeight: 800, color: "#ffffff", wordBreak: "break-word" }}>
               {routingEvaluation.categoryConfig.name}
             </span>
             <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
@@ -299,8 +301,10 @@ export const RoutingInspector = () => {
 
           {/* Connector Arrow */}
           <div className="flow-connector">
-            <span style={{ fontSize: "0.7rem", fontWeight: 700 }}>MIRRORED TO</span>
-            <ArrowRight size={22} />
+            <span className="flow-connector-label">MIRRORED TO</span>
+            <div className="flow-connector-arrow">
+              <ArrowRight size={20} />
+            </div>
           </div>
 
           {/* Node 3: Target Departments */}
@@ -319,36 +323,16 @@ export const RoutingInspector = () => {
         </div>
 
         {/* Immediate Notifications Output */}
-        <div
-          style={{
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.07)",
-            borderRadius: "var(--radius-lg)",
-            padding: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.6rem",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#ffffff" }}>
+        <div className="diagram-notifications-box">
+          <div className="diagram-notifications-header">
+            <span className="diagram-notifications-title">
               Immediate In-App Notification Targets ({routingEvaluation.notifications.length} alerts):
             </span>
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="diagram-notifications-tags">
             {routingEvaluation.notifications.map((notif, idx) => (
-              <span
-                key={idx}
-                style={{
-                  background: "rgba(26, 58, 92, 0.4)",
-                  border: "1px solid rgba(201, 162, 39, 0.3)",
-                  borderRadius: "6px",
-                  padding: "0.3rem 0.6rem",
-                  fontSize: "0.74rem",
-                  color: "#f8fafc",
-                }}
-              >
+              <span key={idx} className="diagram-notification-chip">
                 <strong>{notif.role.toUpperCase()}</strong> ({notif.department}): {notif.reason}
               </span>
             ))}

@@ -24,7 +24,7 @@
   background: radial-gradient(circle, rgba(201, 162, 39, 0.18) 0%, rgba(26, 58, 92, 0) 70%);
   pointer-events: none;
   filter: blur(80px);
-  animation: pulse-glow 6s ease-in-out infinite alternate;
+  animation: splash-pulse-glow 6s ease-in-out infinite alternate;
 }
 
 .splash-grid-overlay {
@@ -216,7 +216,7 @@
   }
 }
 
-@keyframes pulse-glow {
+@keyframes splash-pulse-glow {
   0% {
     transform: translateX(-50%) scale(0.9);
     opacity: 0.6;

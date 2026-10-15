@@ -204,6 +204,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  container-type: inline-size;
+  container-name: diagram;
+  overflow: hidden;
 }
 
 .diagram-header {
@@ -218,24 +221,28 @@
 
 .diagram-flow-container {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  padding: 1rem 0;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  width: 100%;
 }
 
 .flow-node {
   background: rgba(26, 58, 92, 0.4);
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
+  padding: 1.1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  min-width: 150px;
+  flex: 1 1 0px;
+  min-width: 0;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
 }
 
 .flow-node.origin {
@@ -246,7 +253,18 @@
 .flow-node.engine {
   border-color: var(--color-accent);
   background: rgba(201, 162, 39, 0.15);
-  animation: pulse-glow 3s infinite alternate;
+  animation: engine-node-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes engine-node-glow {
+  0% {
+    box-shadow: 0 0 8px rgba(201, 162, 39, 0.25);
+    border-color: rgba(201, 162, 39, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 22px rgba(201, 162, 39, 0.6);
+    border-color: rgba(201, 162, 39, 1);
+  }
 }
 
 .flow-node.targets {
@@ -258,8 +276,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: var(--color-accent);
-  gap: 0.25rem;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  padding: 0 0.35rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.flow-connector-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.flow-connector-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
 }
 
 .flow-dept-chips {
@@ -277,6 +315,71 @@
   font-size: 0.72rem;
   font-weight: 700;
   color: #ffffff;
+}
+
+/* Immediate Notification Targets Box */
+.diagram-notifications-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.diagram-notifications-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.diagram-notifications-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.diagram-notifications-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.diagram-notification-chip {
+  background: rgba(26, 58, 92, 0.4);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.74rem;
+  color: #f8fafc;
+  line-height: 1.4;
+}
+
+/* Container query responsive flow */
+@container diagram (max-width: 880px) {
+  .diagram-flow-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .flow-node {
+    width: 100%;
+    flex: none;
+    padding: 1rem 1.25rem;
+  }
+
+  .flow-connector {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.25rem 0;
+  }
+
+  .flow-connector-arrow {
+    transform: rotate(90deg);
+  }
 }
 
 /* Clearance Matrix Table */
@@ -334,12 +437,28 @@
   border: 1px solid rgba(239, 68, 68, 0.35);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
   .diagram-flow-container {
-    flex-direction: column;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
   }
+
+  .flow-node {
+    width: 100% !important;
+    flex: none !important;
+    padding: 1.1rem 1.25rem !important;
+  }
+
   .flow-connector {
-    transform: rotate(90deg);
-    margin: 0.5rem 0;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    padding: 0.25rem 0 !important;
+  }
+
+  .flow-connector-arrow {
+    transform: rotate(90deg) !important;
   }
 }
