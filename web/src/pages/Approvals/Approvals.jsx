@@ -11,7 +11,7 @@ export const Approvals = () => {
       <header className="approvals-page-header">
         <div className="approvals-page-title-wrap">
           <div className="approvals-page-badge">
-            <Clock size={15} /> Section 11 Executive Clearance
+            Section 11 Executive Clearance
           </div>
           <h1 className="approvals-page-title">
             Executive Document Approval & Clearance Queue

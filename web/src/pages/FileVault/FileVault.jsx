@@ -229,7 +229,6 @@ const FileVault = () => {
       <header className="vault-header">
         <div className="vault-title-wrap">
           <h1>
-            <FolderLock size={28} style={{ color: "var(--color-accent)" }} />
             <span>Official Council File Vault</span>
           </h1>
           <p>
@@ -239,7 +238,6 @@ const FileVault = () => {
         </div>
 
         <div className="vault-clearance-pill">
-          <Shield size={16} style={{ color: "var(--color-accent)" }} />
           <span>
             {user?.role === "councilor"
               ? "Governance View: Published Council Records Only"
@@ -405,7 +403,6 @@ const FileVault = () => {
         </div>
       ) : filteredDocuments.length === 0 ? (
         <div className="vault-empty-state">
-          <FolderLock size={48} style={{ opacity: 0.3 }} />
           <h3 style={{ fontSize: "1.1rem", color: "#ffffff", fontWeight: 700 }}>
             No Matching Records Found
           </h3>

@@ -101,7 +101,6 @@ export const ApprovalPanel = ({ onDocumentApproved }) => {
       {/* Header */}
       <div className="approval-header">
         <div className="approval-title-wrap">
-          <Clock size={20} style={{ color: "#fbbf24" }} />
           <h3>Director & HOD Approval Queue</h3>
           <span className="approval-count-badge">
             {pendingDocs.length} Pending Decision
@@ -139,9 +138,6 @@ export const ApprovalPanel = ({ onDocumentApproved }) => {
           {pendingDocs.map((doc) => (
             <article key={doc.id || doc.refNumber} className="approval-card">
               <div className="approval-doc-info">
-                <div className="approval-icon-wrap">
-                  <FileText size={22} />
-                </div>
                 <div className="approval-text-details">
                   <h4 className="approval-doc-title">{doc.title}</h4>
                   <div className="approval-meta-row">

@@ -11,7 +11,7 @@ export const RoutingEngine = () => {
       <header className="routing-page-header">
         <div className="routing-page-title-wrap">
           <div className="routing-page-badge">
-            <GitFork size={15} /> Section 4 Routing Infrastructure
+            Section 4 Routing Infrastructure
           </div>
           <h1 className="routing-page-title">
             Document Routing Engine & Category Matrix

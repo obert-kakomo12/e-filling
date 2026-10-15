@@ -378,7 +378,6 @@ const UploadRoom = () => {
           {/* Live Routing Distribution Summary */}
           <div className="live-routing-preview-card">
             <div className="routing-preview-header">
-              <GitFork size={16} />
               <span>Intelligent Routing Preview ({liveRouting.targets.length} Workspaces)</span>
             </div>
             <p style={{ fontSize: "0.78rem", color: "var(--color-text-secondary)", margin: 0 }}>
@@ -415,8 +414,7 @@ const UploadRoom = () => {
             {/* Document Title */}
             <div className="form-group">
               <label className="form-label" htmlFor="input-doc-title">
-                <FileText size={14} />
-                <span>Document Title *</span>
+                Document Title *
               </label>
               <input
                 id="input-doc-title"
@@ -432,8 +430,7 @@ const UploadRoom = () => {
             {/* Department (SysAdmin can override, others locked) */}
             <div className="form-group">
               <label className="form-label" htmlFor="select-department">
-                <Building size={14} />
-                <span>Originating Department</span>
+                Originating Department
               </label>
               <select
                 id="select-department"
@@ -453,8 +450,7 @@ const UploadRoom = () => {
             {/* Document Category Matrix Selector */}
             <div className="form-group">
               <label className="form-label">
-                <Layers size={14} />
-                <span>Category Matrix *</span>
+                Category Matrix *
               </label>
               <div className="category-pills">
                 {Object.values(ROUTING_CATEGORIES).map((cat) => (
@@ -482,8 +478,7 @@ const UploadRoom = () => {
             {/* Document Type Dropdown */}
             <div className="form-group">
               <label className="form-label" htmlFor="select-doc-type">
-                <Tag size={14} />
-                <span>Document Classification Type *</span>
+                Document Classification Type *
               </label>
               <select
                 id="select-doc-type"
@@ -502,8 +497,7 @@ const UploadRoom = () => {
             {/* Actionable Trigger Flags */}
             <div className="form-group">
               <label className="form-label">
-                <Sparkles size={14} />
-                <span>Actionable Automation Flags</span>
+                Actionable Automation Flags
               </label>
               <div className="action-flags-box">
                 {Object.values(ACTION_FLAGS).map((flag) => (

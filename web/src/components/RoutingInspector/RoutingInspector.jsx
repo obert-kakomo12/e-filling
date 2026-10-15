@@ -16,17 +16,9 @@ import {
 } from "../../utils/routingEngine";
 import Badge from "../Badge/Badge";
 import {
-  GitFork,
-  Shield,
-  Layers,
   ArrowRight,
   CheckCircle2,
   XCircle,
-  Bell,
-  Eye,
-  Lock,
-  Sparkles,
-  Building,
   Check,
 } from "lucide-react";
 import "./RoutingInspector.css";
@@ -125,7 +117,6 @@ export const RoutingInspector = () => {
       <header className="inspector-header">
         <div className="inspector-title-group">
           <h2>
-            <GitFork size={22} style={{ color: "var(--color-accent)" }} />
             <span>Document Routing Engine & Category Matrix</span>
           </h2>
           <p>
@@ -142,7 +133,6 @@ export const RoutingInspector = () => {
               className={`preset-chip ${activePreset === preset.id ? "active" : ""}`}
               onClick={() => loadPreset(preset)}
             >
-              <Sparkles size={13} style={{ color: "var(--color-accent)" }} />
               <span>{preset.name}</span>
             </button>
           ))}
@@ -154,7 +144,6 @@ export const RoutingInspector = () => {
         {/* Originating Department */}
         <div className="inspector-field">
           <label className="inspector-field-label">
-            <Building size={14} />
             <span>Originating Department</span>
           </label>
           <select
@@ -176,7 +165,6 @@ export const RoutingInspector = () => {
         {/* Document Type */}
         <div className="inspector-field">
           <label className="inspector-field-label">
-            <Layers size={14} />
             <span>Document Type Tag</span>
           </label>
           <select
@@ -198,7 +186,6 @@ export const RoutingInspector = () => {
         {/* Document Lifecycle State */}
         <div className="inspector-field">
           <label className="inspector-field-label">
-            <Eye size={14} />
             <span>Document State</span>
           </label>
           <select
@@ -220,7 +207,6 @@ export const RoutingInspector = () => {
         {/* Action Flags Checklist */}
         <div className="inspector-field">
           <label className="inspector-field-label">
-            <GitFork size={14} />
             <span>Actionable Flags</span>
           </label>
           <div className="action-flags-group">
@@ -345,7 +331,6 @@ export const RoutingInspector = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <Bell size={16} style={{ color: "var(--color-accent)" }} />
             <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#ffffff" }}>
               Immediate In-App Notification Targets ({routingEvaluation.notifications.length} alerts):
             </span>

@@ -1,15 +1,6 @@
 import React from "react";
 import Badge from "../Badge/Badge";
-import {
-  FileText,
-  FileSpreadsheet,
-  FileCheck,
-  Image as ImageIcon,
-  Calendar,
-  User,
-  GitFork,
-  Lock,
-} from "lucide-react";
+import { Lock } from "lucide-react";
 import "./DocumentCard.css";
 
 export const DocumentCard = ({ document, onClick }) => {
@@ -30,35 +21,6 @@ export const DocumentCard = ({ document, onClick }) => {
     routedTo,
     tags = [],
   } = document;
-
-  const getDocIcon = () => {
-    if (fileType?.includes("pdf") || documentType?.includes("report")) {
-      return (
-        <div className="doc-card-icon-wrap doc-card-icon-pdf">
-          <FileText size={22} />
-        </div>
-      );
-    }
-    if (fileType?.includes("sheet") || fileType?.includes("excel") || documentType === "budget") {
-      return (
-        <div className="doc-card-icon-wrap doc-card-icon-xls">
-          <FileSpreadsheet size={22} />
-        </div>
-      );
-    }
-    if (fileType?.includes("image")) {
-      return (
-        <div className="doc-card-icon-wrap doc-card-icon-img">
-          <ImageIcon size={22} />
-        </div>
-      );
-    }
-    return (
-      <div className="doc-card-icon-wrap doc-card-icon-doc">
-        <FileCheck size={22} />
-      </div>
-    );
-  };
 
   const formatDate = (isoString) => {
     if (!isoString) return "";
@@ -85,7 +47,6 @@ export const DocumentCard = ({ document, onClick }) => {
       aria-label={`Document: ${title}`}
     >
       <div className="doc-card-top">
-        {getDocIcon()}
         <div className="doc-card-badges">
           <span className="doc-ref-pill">{refNumber}</span>
           <Badge type="status" value={status} />
@@ -119,16 +80,14 @@ export const DocumentCard = ({ document, onClick }) => {
             <Lock size={12} style={{ color: "var(--color-danger)" }} title="Strictly Confidential" />
           )}
           {routedTo && routedTo.length > 1 && (
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", color: "var(--color-accent)" }}>
-              <GitFork size={12} />
-              <span>{routedTo.length}</span>
+            <span style={{ fontSize: "0.72rem", color: "var(--color-accent)", fontWeight: 700 }}>
+              {routedTo.length} routes
             </span>
           )}
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-          <Calendar size={12} />
-          <span>{formatDate(createdAt)}</span>
+        <div style={{ fontSize: "0.74rem", color: "var(--color-text-muted)" }}>
+          {formatDate(createdAt)}
         </div>
       </div>
     </article>
