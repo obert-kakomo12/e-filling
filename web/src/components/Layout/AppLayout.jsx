@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
-import Topbar from "../Topbar/Topbar";
+import { Menu } from "lucide-react";
 import "./AppLayout.css";
 
 export const AppLayout = ({ children }) => {
@@ -26,9 +26,16 @@ export const AppLayout = ({ children }) => {
         <div className="app-bg-bubble-4" aria-hidden="true" />
         <div className="app-bg-bubble-5" aria-hidden="true" />
 
-        <Topbar
-          onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
-        />
+        {/* Mobile menu toggle button for small screens */}
+        <button
+          type="button"
+          className="mrdc-mobile-nav-toggle"
+          onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          <Menu size={20} />
+        </button>
+
         <main className="mrdc-content-area" id="main-content" role="main">
           {children}
         </main>

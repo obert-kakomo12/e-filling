@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { hasPermission, DEPARTMENTS } from "../../utils/rbac";
+import { DEMO_USERS } from "../../services/authService";
 import Badge from "../Badge/Badge";
+import NotificationBell from "../NotificationBell/NotificationBell";
 import {
   LayoutDashboard,
   UploadCloud,
@@ -13,16 +15,40 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Shield,
   Landmark,
   GitFork,
   CheckSquare,
+  Search,
+  X,
+  Clock,
 } from "lucide-react";
 import "./Sidebar.css";
 
 export const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, loginAsDemo } = useAuth();
   const navigate = useNavigate();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [secondsRemaining, setSecondsRemaining] = useState(300); // 5-minute inactivity countdown
+
+  // Inactivity countdown: 5 minutes = 300 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    const handleActivity = () => {
+      setSecondsRemaining(300);
+    };
+
+    const events = ["mousemove", "keydown", "click", "touchstart", "scroll"];
+    events.forEach((ev) => window.addEventListener(ev, handleActivity));
+
+    return () => {
+      clearInterval(timer);
+      events.forEach((ev) => window.removeEventListener(ev, handleActivity));
+    };
+  }, []);
 
   if (!user) return null;
 
@@ -37,6 +63,20 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobile
       .join("")
       .slice(0, 2)
       .toUpperCase();
+  };
+
+  const formatCountdown = (totalSeconds) => {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/vault?search=${encodeURIComponent(searchQuery.trim())}`);
+      if (isMobileOpen && setIsMobileOpen) setIsMobileOpen(false);
+    }
   };
 
   const navLinks = [
@@ -139,25 +179,88 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobile
           )}
         </NavLink>
 
-        {/* User Profile Card */}
+        {/* User Profile Section with Notification Bell & Inactivity Timer */}
         {!isCollapsed ? (
           <div className="sidebar-user-card">
-            <div className="sidebar-avatar">{getInitials(user.displayName)}</div>
-            <div className="sidebar-user-info">
-              <span className="sidebar-user-name" title={user.displayName}>
-                {user.displayName || "Council Officer"}
-              </span>
-              <div style={{ display: "flex", gap: "0.3rem", alignItems: "center" }}>
+            <div className="sidebar-user-card-top">
+              <div className="sidebar-avatar">{getInitials(user.displayName)}</div>
+              <div className="sidebar-user-info">
+                <span className="sidebar-user-name" title={user.displayName}>
+                  {user.displayName || "Council Officer"}
+                </span>
+                <span className="sidebar-user-dept">{deptInfo.code} • {deptInfo.name}</span>
+              </div>
+              <div className="sidebar-user-actions">
+                <NotificationBell />
+              </div>
+            </div>
+
+            <div className="sidebar-user-card-meta">
+              <div style={{ display: "flex", gap: "0.35rem", alignItems: "center" }}>
                 <Badge type="role" value={user.role} withDot={false} />
               </div>
-              <span className="sidebar-user-dept">{deptInfo.code} • {deptInfo.name}</span>
+
+              <div
+                className="sidebar-session-timer"
+                title="Auto-timeout session timer resets on user activity"
+              >
+                <span className={`sidebar-session-dot ${secondsRemaining < 60 ? "warning" : ""}`} />
+                <Clock size={11} />
+                <span>{formatCountdown(secondsRemaining)}</span>
+              </div>
+            </div>
+
+            {/* Test Role Switcher */}
+            <div className="sidebar-role-switch-wrap">
+              <select
+                className="sidebar-role-select"
+                value={user?.role}
+                onChange={(e) => loginAsDemo(e.target.value)}
+                title="Switch Demo Role"
+              >
+                {DEMO_USERS.map((u) => (
+                  <option key={u.uid} value={u.role}>
+                    {u.displayName} ({u.role.toUpperCase()})
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         ) : (
-          <div style={{ padding: "0.85rem 0", display: "flex", justifyContent: "center" }}>
+          <div className="sidebar-collapsed-profile">
             <div className="sidebar-avatar" title={`${user.displayName} (${user.role})`}>
               {getInitials(user.displayName)}
             </div>
+            <div style={{ transform: "scale(0.85)" }}>
+              <NotificationBell />
+            </div>
+          </div>
+        )}
+
+        {/* Global Search Bar */}
+        {!isCollapsed && (
+          <div className="sidebar-search-container">
+            <form className="sidebar-search-wrap" onSubmit={handleSearchSubmit}>
+              <Search size={14} className="sidebar-search-icon" />
+              <input
+                type="text"
+                className="sidebar-search-input"
+                placeholder="Search files or ref..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search files in vault"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  className="sidebar-search-clear"
+                  onClick={() => setSearchQuery("")}
+                  aria-label="Clear search"
+                >
+                  <X size={12} />
+                </button>
+              )}
+            </form>
           </div>
         )}
 
@@ -179,16 +282,15 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobile
                   title={isCollapsed ? item.label : undefined}
                   onClick={handleLinkClick}
                 >
-                  <Icon className="sidebar-icon" size={20} />
+                  <Icon className="sidebar-icon" size={18} />
                   {!isCollapsed && <span>{item.label}</span>}
                 </NavLink>
               );
             })}
         </nav>
 
-        {/* Footer actions */}
-        <div className="sidebar-footer">
-          {/* Collapse/Expand Toggle on Desktop */}
+        {/* Reduced & Compact Footer: Side-by-side Collapse & Sign Out */}
+        <div className={`sidebar-footer ${isCollapsed ? "footer-collapsed" : ""}`}>
           <button
             type="button"
             className="sidebar-collapse-btn"
@@ -196,19 +298,18 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed, isMobileOpen, setIsMobile
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-            {!isCollapsed && <span>Collapse Menu</span>}
+            {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+            {!isCollapsed && <span>Collapse</span>}
           </button>
 
-          {/* Sign Out */}
           <button
             type="button"
-            className="sidebar-signout-btn"
+            className="sidebar-signout-btn-reduced"
             onClick={handleLogout}
             title="Secure Sign Out"
             id="btn-sidebar-signout"
           >
-            <LogOut size={18} />
+            <LogOut size={16} />
             {!isCollapsed && <span>Sign Out</span>}
           </button>
         </div>
